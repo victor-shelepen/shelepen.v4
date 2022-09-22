@@ -9,7 +9,7 @@ import webpack from 'webpack'
 import webpackConfig from '../../webpack.code.config'
 import App from '../component/App'
 
-const DIST_FOLDER = path.join(__dirname, '../../dist_folder')
+const DIST_FOLDER = path.join(__dirname, '../../gh-pages')
 const webpackAsync = util.promisify(webpack)
 
 export default async function render() {
