@@ -11,6 +11,7 @@ export default function App() {
     <div>
       {counter}
       <button type="button" onClick={onClick}>Increment</button>
+      It appears on the master branch.
     </div>
   )
 }
