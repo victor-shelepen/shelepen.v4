@@ -1,7 +1,9 @@
 import { createRoot, hydrateRoot } from 'react-dom/client'
 
-// eslint-disable-next-line no-undef
-export const config = CONFIG
+export function getConfig() {
+  // eslint-disable-next-line no-undef
+  return CONFIG
+}
 
 export function render(component, rootId = 'root') {
   const container = document.getElementById(rootId)
@@ -15,6 +17,7 @@ export function hydrate(component, toId = 'app') {
 }
 
 export default function process(component) {
+  const config = getConfig()
   if (config.mode === 'production') {
     hydrate(component)
   } else {

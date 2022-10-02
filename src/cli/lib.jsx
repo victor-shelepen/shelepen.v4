@@ -16,10 +16,11 @@ export const rootPath = path.join(__dirname, '../../')
 
 const webpackAsync = util.promisify(webpack)
 
-export async function serve(page = 'home', port = 9000) {
+export async function serve(page = 'home', language = 'en', port = 9000) {
   const mode = 'development'
   const config = {
     ...webpackConfig,
+    devtool: 'source-map',
     mode,
     entry: `./src/page/${page}/index.jsx`,
     plugins: [
@@ -27,6 +28,7 @@ export async function serve(page = 'home', port = 9000) {
         CONFIG: JSON.stringify({
           mode,
           page,
+          language,
         }),
       }),
       new HtmlWebpackPlugin({

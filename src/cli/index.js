@@ -2,6 +2,8 @@ import args from 'args'
 import render, { serve } from './lib'
 
 args
+  .option('page', 'Page', 'home')
+  .option('language', 'Language', 'en')
   .command(
     'render',
     'Renders the site',
@@ -12,8 +14,8 @@ args
   .command(
     'serve',
     'Serves the page.',
-    async () => {
-      serve()
+    async (_, __, options) => {
+      serve(options.page, options.language)
     },
   )
 
