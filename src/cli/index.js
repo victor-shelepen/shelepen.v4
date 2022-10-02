@@ -1,5 +1,5 @@
 import args from 'args'
-import render from './lib'
+import render, { serve } from './lib'
 
 args
   .command(
@@ -7,6 +7,13 @@ args
     'Renders the site',
     async () => {
       render()
+    },
+  )
+  .command(
+    'serve',
+    'Serves the page.',
+    async () => {
+      serve()
     },
   )
 

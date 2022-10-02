@@ -1,4 +1,8 @@
 module.exports = {
+  env: {
+    browser: true,
+    node: true,
+  },
   extends: ['airbnb', 'airbnb/hooks'],
   rules: {
     semi: ['error', 'never'],

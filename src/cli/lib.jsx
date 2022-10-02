@@ -5,12 +5,47 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import rimraf from 'rimraf-promise'
 import util from 'util'
-import webpack from 'webpack'
+import webpack, { DefinePlugin } from 'webpack'
+import WebpackDevServer from 'webpack-dev-server'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpackConfig from '../../webpack.code.config'
 import App from '../component/App'
 
 const DIST_FOLDER = path.join(__dirname, '../../gh-pages')
+export const rootPath = path.join(__dirname, '../../')
+
 const webpackAsync = util.promisify(webpack)
+
+export async function serve(page = 'home', port = 9000) {
+  const mode = 'development'
+  const config = {
+    ...webpackConfig,
+    mode,
+    entry: `./src/page/${page}/index.jsx`,
+    plugins: [
+      new DefinePlugin({
+        CONFIG: JSON.stringify({
+          mode,
+          page,
+        }),
+      }),
+      new HtmlWebpackPlugin({
+        template: path.join(rootPath, './pug/index.pug'),
+        filename: 'index.html',
+      }),
+    ],
+  }
+  const options = {
+    port,
+    watchFiles: ['src/**/*.jsx'],
+  }
+  const compiler = webpack(config)
+  const server = new WebpackDevServer(options, compiler)
+  server.startCallback(() => {
+    // eslint-disable-next-line no-console
+    console.log(`Starting server on ${port} port.`)
+  })
+}
 
 export default async function render() {
   await rimraf(DIST_FOLDER)
