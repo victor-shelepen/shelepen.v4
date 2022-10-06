@@ -15,12 +15,3 @@ export function hydrate(component, toId = 'app') {
   const container = document.getElementById(toId)
   hydrateRoot(container, component)
 }
-
-export default function process(component) {
-  const config = getConfig()
-  if (config.mode === 'production') {
-    hydrate(component)
-  } else {
-    render(component)
-  }
-}

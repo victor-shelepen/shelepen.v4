@@ -7,5 +7,6 @@ module.exports = {
   rules: {
     semi: ['error', 'never'],
     quotes: ['error', 'single'],
+    'react/prop-types': 'off',
   },
 }

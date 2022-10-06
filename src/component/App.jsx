@@ -2,37 +2,37 @@ import get from 'lodash.get'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { useState, createContext } from 'react'
 import theme from '../theme'
-import { getConfig } from '../lib'
 
-const TextContext = createContext()
+const TranslatorContext = createContext()
 
-export function useText() {
-  const config = getConfig()
-  const text = React.useContext(TextContext)
-
-  return function t(key, language = config.language) {
+export function getTranslator(text, language) {
+  return function t(key) {
     return get(text, key)[language]
   }
 }
 
-export default function AppBuilder(text, Component) {
-  return function App() {
-    const [counter, updateCounter] = useState(0)
+export function useTranslator() {
+  const translator = React.useContext(TranslatorContext)
 
-    function onClick() {
-      updateCounter(counter + 1)
-    }
+  return getTranslator(translator.text, translator.language)
+}
 
-    return (
-      <div>
-        <TextContext.Provider value={text}>
-          <ThemeProvider theme={theme}>
-            {counter}
-            <button type="button" onClick={onClick}>Increment</button>
-            <Component />
-          </ThemeProvider>
-        </TextContext.Provider>
-      </div>
-    )
+export default function App({ translator, children }) {
+  const [counter, updateCounter] = useState(28)
+
+  function onClick() {
+    updateCounter(counter + 1)
   }
+
+  return (
+    <div>
+      <TranslatorContext.Provider value={translator}>
+        <ThemeProvider theme={theme}>
+          {counter}
+          <button type="button" onClick={onClick}>Increment</button>
+          { children }
+        </ThemeProvider>
+      </TranslatorContext.Provider>
+    </div>
+  )
 }
