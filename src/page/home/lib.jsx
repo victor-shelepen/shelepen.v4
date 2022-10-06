@@ -14,7 +14,7 @@ export function HomePage() {
 
   return (
     <div>
-      Voip page...
+      Home page...
       {t('title')}
       {counter}
       <button type="button" onClick={onClick}>Increment</button>

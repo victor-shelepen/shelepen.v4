@@ -1,10 +1,5 @@
-import React from 'react'
-import process from '../../lib'
+import { hydrate } from '../../core/lib'
+import { getRootComponent } from './lib'
 
-export default function HomePage() {
-  return (
-    <div>Home page changed...</div>
-  )
-}
-
-process(<HomePage />)
+const component = getRootComponent()
+hydrate(component)

@@ -52,6 +52,7 @@ export async function serve(page = 'home', language = 'en', port = 9000) {
 }
 
 export async function buildPage(basePath, page = 'home', language = 'en') {
+  fs.mkdirSync(basePath, { recursive: true })
   const mode = 'production'
   const webConfig = webpackMerge(
     webpackConfig,
@@ -107,6 +108,7 @@ export async function buildPage(basePath, page = 'home', language = 'en') {
   await new Promise((resolve, reject) => {
     nodeCompiler.run((err, stats) => {
       if (err) {
+        console.log(err)
         reject(err)
       }
 
@@ -155,4 +157,9 @@ export default async function build() {
     })
   })
   await Promise.all(promises)
+  const pageContent = renderFile('./pug/index-redirect.pug', {
+    page: 'home',
+    language: 'en',
+  })
+  fs.writeFileSync(path.resolve(DIST_FOLDER, 'index.html'), pageContent)
 }
