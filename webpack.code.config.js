@@ -5,23 +5,27 @@ module.exports = {
   module: {
     rules: [
       {
-        test:  /\.(js|jsx)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader',
         },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.pug$/,
         loader: 'pug-loader',
         options: {
-          pretty: true
-        }
-      }
-    ]
-  }
+          pretty: true,
+        },
+      },
+      {
+        test: /\.ya?ml$/,
+        use: 'yaml-loader',
+      },
+    ],
+  },
 }

@@ -1,0 +1,10 @@
+menu:
+  home:
+    en: 'Home'
+    ua: 'Головна'
+    ru: 'Главная'
+  voip:
+    en: 'VoIP'
+    ua: 'Воип'
+    ru: 'Воип'
+
