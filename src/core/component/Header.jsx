@@ -1,7 +1,8 @@
 import React from 'react'
+import { useTranslator } from '../lib'
 
 export default function Header() {
-  const language = 'en'
+  const { t, language } = useTranslator()
   const pages = [
     'home',
     'voip',
@@ -9,7 +10,7 @@ export default function Header() {
 
   return (
     <div>
-      {pages.map((page) => <a href="/{page}/{language}">{page}</a>)}
+      {pages.map((page) => <div key={page}><a href={`/${page}/${language}`}>{t(`menu.${page}`)}</a></div>)}
     </div>
   )
 }

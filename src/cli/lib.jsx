@@ -108,7 +108,6 @@ export async function buildPage(basePath, page = 'home', language = 'en') {
   await new Promise((resolve, reject) => {
     nodeCompiler.run((err, stats) => {
       if (err) {
-        console.log(err)
         reject(err)
       }
 

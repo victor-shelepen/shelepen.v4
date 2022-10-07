@@ -15,7 +15,7 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run lint
-      - run: npm run cli -- render
+      - run: npm run cli -- build
       -
         name: Deploy to GitHub Pages
         if: success()

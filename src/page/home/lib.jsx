@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import ReactDOMServer from 'react-dom/server'
-import App, { useTranslator } from '../../core/component/App'
-import text from './text.yml'
-import { getConfig } from '../../core/lib'
+import App from '../../core/component/App'
+import { getConfig, useTranslator } from '../../core/lib'
+import coreText from '../../core/text.yml'
+import pageText from './text.yml'
 
 export function HomePage() {
-  const t = useTranslator()
+  const { t } = useTranslator()
   const [counter, updateCounter] = useState(29)
 
   function onClick() {
@@ -24,6 +25,7 @@ export function HomePage() {
 
 export function getRootComponent() {
   const config = getConfig()
+  const text = { ...coreText, ...pageText }
   const translator = { text, language: config.language }
   return (
     <App translator={translator}>
