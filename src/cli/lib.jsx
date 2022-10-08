@@ -36,6 +36,10 @@ export async function serve(page = 'home', language = 'en', port = 9000) {
         new HtmlWebpackPlugin({
           template: path.join(rootPath, './pug/index.pug'),
           filename: 'index.html',
+          templateParameters: {
+            language,
+            mode,
+          },
         }),
       ],
     },
@@ -127,7 +131,14 @@ export async function buildPage(basePath, page = 'home', language = 'en') {
     nodeConfig.output.filename,
   )
   const bodyHTML = app.default()
-  const pageContent = renderFile('./pug/frame.pug', { bodyHTML })
+  const pageContent = renderFile(
+    './pug/index.pug',
+    {
+      bodyHTML,
+      language,
+      mode,
+    },
+  )
   fs.writeFileSync(path.resolve(basePath, 'index.html'), pageContent)
 }
 
