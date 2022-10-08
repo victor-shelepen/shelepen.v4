@@ -10,6 +10,7 @@ import webpack, { DefinePlugin } from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import webpackMerge from 'webpack-merge'
 import webpackConfig from '../../webpack.code.config'
+import projectConfig from '../config'
 
 const DIST_FOLDER = path.join(__dirname, '../../gh-pages')
 export const rootPath = path.join(__dirname, '../../')
@@ -140,8 +141,12 @@ export async function buildPageCommand(page, language) {
 export default async function build() {
   await rimraf(DIST_FOLDER)
   fs.mkdirSync(DIST_FOLDER)
-  const pages = ['home', 'voip']
-  const languages = ['en', 'ua', 'ru']
+  const {
+    pages,
+    languages,
+    defaultPage,
+    defaultLanguage,
+  } = projectConfig
   await rimraf(DIST_FOLDER)
   fs.mkdirSync(DIST_FOLDER)
   const promises = []
@@ -157,8 +162,8 @@ export default async function build() {
   })
   await Promise.all(promises)
   const pageContent = renderFile('./pug/index-redirect.pug', {
-    page: 'home',
-    language: 'en',
+    page: defaultPage,
+    language: defaultLanguage,
   })
   fs.writeFileSync(path.resolve(DIST_FOLDER, 'index.html'), pageContent)
 }
