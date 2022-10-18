@@ -6,13 +6,15 @@ html(lang=language)
       name="viewport"
       content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"
     )
+    include ./style.pug
     link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
   body
     if mode == 'development'
       div#root
-
+        include ./loading.pug
     if mode == 'production'
       div#app
+        include ./loading.pug
         | !{bodyHTML}
       script(src='./index_bundle.js')

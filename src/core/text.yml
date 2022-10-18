@@ -1,3 +1,16 @@
+language:
+  en:
+    en: 'En'
+    ua: 'Анг'
+    ru: 'Анг'
+  ua:
+    en: 'Ua'
+    ua: 'Укр'
+    ru: 'Укр'
+  ru:
+    en: 'Ru'
+    ua: 'Рос'
+    ru: 'Рус'
 menu:
   home:
     en: 'Home'
