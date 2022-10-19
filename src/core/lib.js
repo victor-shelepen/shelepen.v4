@@ -33,7 +33,16 @@ export function useTranslator() {
   const { text, language } = React.useContext(TranslatorContext)
 
   function t(key) {
-    return get(text, key)[language]
+    const translations = get(text, key)
+    if (!translations) {
+      return key
+    }
+    const translation = translations[language]
+    if (!translation) {
+      return `${key}-${language}`
+    }
+
+    return translation
   }
 
   return { t, language }
