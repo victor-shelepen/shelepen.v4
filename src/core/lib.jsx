@@ -1,6 +1,7 @@
 import React, { createContext } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import get from 'lodash.get'
+import { parse } from 'marked'
 
 export function getConfig() {
   // eslint-disable-next-line no-undef
@@ -32,8 +33,21 @@ export const TranslatorContext = createContext()
 export function useTranslator() {
   const { text, language } = React.useContext(TranslatorContext)
 
-  function t(key) {
-    return get(text, key)[language]
+  function t(key, marked = false) {
+    const translations = get(text, key)
+    if (!translations) {
+      return key
+    }
+    let translation = translations[language]
+    if (!translation) {
+      return `${key}-${language}`
+    }
+    if (marked) {
+      // eslint-disable-next-line react/no-danger
+      translation = <div dangerouslySetInnerHTML={{ __html: parse(translation) }} />
+    }
+
+    return translation
   }
 
   return { t, language }

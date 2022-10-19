@@ -20,3 +20,8 @@ menu:
     en: 'VoIP'
     ua: 'Воип'
     ru: 'Воип'
+footer:
+  builtAt:
+    en: 'Built on'
+    ua: 'Зібрано в'
+    ru: 'Собрано в'

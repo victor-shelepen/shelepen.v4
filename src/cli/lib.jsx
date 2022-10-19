@@ -17,6 +17,14 @@ export const rootPath = path.join(__dirname, '../../')
 
 const webpackAsync = util.promisify(webpack)
 
+function prepareConfig(config) {
+  return {
+    ...projectConfig,
+    ...config,
+    buildDate: new Date(),
+  }
+}
+
 export async function serve(page = 'home', language = 'en', port = 9000) {
   const mode = 'development'
   const config = webpackMerge(
@@ -27,11 +35,11 @@ export async function serve(page = 'home', language = 'en', port = 9000) {
       entry: `./src/page/${page}/index.jsx`,
       plugins: [
         new DefinePlugin({
-          CONFIG: JSON.stringify({
+          CONFIG: JSON.stringify(prepareConfig({
             mode,
             page,
             language,
-          }),
+          })),
         }),
         new HtmlWebpackPlugin({
           template: path.join(rootPath, './pug/index.pug'),
@@ -74,11 +82,11 @@ export async function buildPage(basePath, page = 'home', language = 'en') {
       },
       plugins: [
         new DefinePlugin({
-          CONFIG: JSON.stringify({
+          CONFIG: JSON.stringify(prepareConfig({
             mode,
             page,
             language,
-          }),
+          })),
         }),
       ],
     },
