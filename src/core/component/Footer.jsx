@@ -12,7 +12,7 @@ export default function Footer() {
 
   return (
     <Box sx={{ bgcolor: 'text.secondary', color: 'white', p: 1 }}>
-      <Container maxWidth="lg" sx={{ bgcolor: 'green' }}>
+      <Container maxWidth="lg">
         <Typography textAlign="center">
           {t('footer.builtAt')}
           &nbsp;
