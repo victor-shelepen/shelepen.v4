@@ -10,7 +10,12 @@ export default function Page() {
   return (
     <Box>
       <Container maxWidth="lg">
-        <Image src={victorImage} style={{ borderRadius: '50px', width: '100px', height: '100px', float: 'left' }} />
+        <Image
+          src={victorImage}
+          style={{
+            borderRadius: '50px', width: '100px', height: '100px', float: 'left',
+          }}
+        />
         <Typography variant="h3">{t('introduction.title')}</Typography>
         <Typography variant="body2"><div>{t('introduction.body', true)}</div></Typography>
       </Container>
