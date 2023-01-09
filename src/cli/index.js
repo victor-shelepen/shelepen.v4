@@ -15,7 +15,7 @@ args
     'build',
     'builds the site',
     async (_, __, options) => {
-      build(options.page, options.language)
+      build(true)
     },
   )
   .command(

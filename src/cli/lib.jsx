@@ -9,7 +9,7 @@ import util from 'util'
 import webpack, { DefinePlugin } from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import webpackMerge from 'webpack-merge'
-import webpackConfig from '../../webpack.code.config'
+import webpackConfigBuilder from '../../webpack.code.config'
 import projectConfig from '../config'
 
 const DIST_FOLDER = path.join(__dirname, '../../gh-pages')
@@ -28,7 +28,7 @@ function prepareConfig(config) {
 export async function serve(page = 'home', language = 'en', port = 9000) {
   const mode = 'development'
   const config = webpackMerge(
-    webpackConfig,
+    webpackConfigBuilder(false),
     {
       devtool: 'source-map',
       mode,
@@ -64,11 +64,11 @@ export async function serve(page = 'home', language = 'en', port = 9000) {
   })
 }
 
-export async function buildPage(basePath, page = 'home', language = 'en') {
+export async function buildPage(basePath, page = 'home', language = 'en', optimised = false) {
   fs.mkdirSync(basePath, { recursive: true })
   const mode = 'production'
   const webConfig = webpackMerge(
-    webpackConfig,
+    webpackConfigBuilder(true),
     {
       mode: 'production',
       target: 'web',
@@ -78,7 +78,7 @@ export async function buildPage(basePath, page = 'home', language = 'en') {
         filename: 'index_bundle.js',
       },
       optimization: {
-        minimize: false,
+        minimize: optimised,
       },
       plugins: [
         new DefinePlugin({
@@ -157,7 +157,7 @@ export async function buildPageCommand(page, language) {
   await buildPage(basePath, page, language)
 }
 
-export default async function build() {
+export default async function build(optimised = true) {
   await rimraf(DIST_FOLDER)
   fs.mkdirSync(DIST_FOLDER)
   const {
@@ -175,7 +175,7 @@ export default async function build() {
     languages.forEach((language) => {
       const pageTranslatedPath = path.resolve(pageSpacePath, language)
       fs.mkdirSync(pageTranslatedPath)
-      const promise = buildPage(pageTranslatedPath, page, language)
+      const promise = buildPage(pageTranslatedPath, page, language, optimised)
       promises.push(promise)
     })
   })

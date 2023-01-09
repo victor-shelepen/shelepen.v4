@@ -1,6 +1,6 @@
-# Shelepen's personal site of the 4-st version.
+# Shelepen's site of the 4-st version.
 ## Summary
-This is a continuation of the project Shelepen personal site. The main difference is the stack of technologies(ReactJS) and the new main feature is multi-paging to make it more SEO friendly.
+This is a continuation of the project Shelepen personal site. The main difference is the stack of technologies(ReactJS) and the new main feature is multi-paging to make it more SEO-friendly.
 ## Development
 Development is per page where you can define a language of content translation.
 
