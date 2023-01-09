@@ -14,7 +14,7 @@ args
   .command(
     'build',
     'builds the site',
-    async (_, __, options) => {
+    async () => {
       build(true)
     },
   )
